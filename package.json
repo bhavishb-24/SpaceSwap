@@ -1,0 +1,8 @@
+{
+  "name": "spaceswap",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {"start": "python3 -m http.server 5173", "dev": "python3 -m http.server 5173"},
+  "description": "A local-first apartment planner with shared 2D and 3D geometry."
+}

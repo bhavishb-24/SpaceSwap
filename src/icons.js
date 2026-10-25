@@ -1,0 +1,30 @@
+const paths={
+ cube:'m12 3 9 5v9l-9 5-9-5V8l9-5Zm0 10 9-5M3 8l9 5v9',
+ grid:'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z',
+ home:'m3 10 9-7 9 7v11H3V10Zm6 11v-8h6v8',
+ sofa:'M5 11V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5M3 10h3v6h12v-6h3v10H3V10Zm3 10v2m12-2v2',
+ compare:'M4 4h6v16H4zM14 4h6v16h-6zM7 8h0m10 8h0',
+ report:'M5 3h10l4 4v14H5V3Zm10 0v5h4M8 12h8M8 16h6',
+ settings:'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2-5h4l1 3 3-1 2 3-2 3 2 3-2 3-3-1-1 3h-4l-1-3-3 1-2-3 2-3-2-3 2-3 3 1 1-3Z',
+ chevron:'m9 5 7 7-7 7',down:'m6 9 6 6 6-6',plus:'M12 5v14M5 12h14',minus:'M5 12h14',search:'M10.5 18a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15Zm5-2 5 5',
+ arrow:'M4 12h16m-6-6 6 6-6 6',check:'m5 12 4 4L19 6',close:'m6 6 12 12M6 18 18 6',
+ undo:'M9 4 4 9l5 5M4 9h10a6 6 0 0 1 0 12',redo:'m15 4 5 5-5 5m5-5H10a6 6 0 0 0 0 12',
+ rotate:'M20 8V3l-4 4a8 8 0 1 0 4 10M20 8h-5',trash:'M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7',
+ copy:'M8 8h12v13H8zM4 16H2V2h12v2',fit:'M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5',
+ pointer:'m5 3 14 9-7 2-3 7L5 3Z',hand:'M7 12V5a2 2 0 0 1 4 0v5-7a2 2 0 0 1 4 0v7-5a2 2 0 0 1 4 0v9c0 6-3 8-7 8s-5-3-8-7c-2-3 0-5 3-3Z',
+ ruler:'m3 16 13-13 5 5L8 21l-5-5Zm8-8 3 3m0-6 3 3m-9 3 3 3m-6 0 3 3',
+ alert:'m12 3 10 18H2L12 3Zm0 6v5m0 3v1',info:'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm0-11v6m0-11v1',
+ save:'m20 7-8 9-4-4M7 20H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3',download:'M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5',
+ sun:'M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10ZM12 1v2m0 18v2M1 12h2m18 0h2M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2',
+ layers:'m12 3 10 5-10 5L2 8l10-5ZM2 12l10 5 10-5M2 16l10 5 10-5',
+ door:'M4 21V3h15v18M7 21V5l9-2v18M13 12h0',window:'M3 3h18v18H3zM12 3v18M3 12h18',
+ bed:'M3 18V5m18 13V9H3m0 8h18M6 9V5h7v4m-10 8v4m18-4v4',
+ table:'M3 6h18v4H3zM5 10v11m14-11v11',storage:'M4 3h16v18H4zM12 3v18M9 12h0m6 0h0',
+ lamp:'m8 3-4 9h16l-4-9H8Zm4 9v9m-4 0h8',money:'M3 5h18v14H3zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8ZM6 12h0m12 0h0',
+ spark:'m12 2 3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7Z',pin:'M12 22s8-8 8-14A8 8 0 0 0 4 8c0 6 8 14 8 14Zm0-17a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z',
+ clock:'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm0-16v6l4 2',external:'M14 3h7v7m0-7L10 14M10 3H3v18h18v-7',
+ print:'M6 8V2h12v6M6 17H3V8h18v9h-3M6 14h12v8H6z',
+ menu:'M3 6h18M3 12h18M3 18h18',heart:'M12 21S1 14 2 7c1-6 8-6 10-1 2-5 9-5 10 1 1 7-10 14-10 14Z'
+};
+export const icon=(name,size=18)=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${paths[name]||paths.cube}"/></svg>`;
+export const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
