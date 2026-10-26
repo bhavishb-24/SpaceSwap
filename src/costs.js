@@ -6,8 +6,11 @@ export function calculateCosts(apartment,project){
  const replacementItems=project.inventory.filter(i=>i.source==='owned'&&apartment.replacementIds.includes(i.id));
  const replacement=replacementItems.reduce((s,f)=>s+value(f.price,`${f.name} replacement allowance`),0);
  const moving=value(apartment.moving,'moving cost'),setup=value(apartment.setup,'setup cost'),rent=value(apartment.rent,'monthly rent'),recurring=value(apartment.recurring,'monthly extras');
- const oneTime=furnishing+replacement+moving+setup,total=oneTime+(rent+recurring)*project.preferences.months;
- return {furnishing,replacement,replacementItems,moving,setup,rent,recurring,oneTime,total,remaining:project.preferences.budget-oneTime,missing,complete:missing.length===0};
+ const months=project.preferences.months;
+ if(!Number.isInteger(months)||months<1)missing.push('stay length');
+ if(!Number.isFinite(project.preferences.budget))missing.push('move-in budget');
+ const oneTime=furnishing+replacement+moving+setup,total=oneTime+(rent+recurring)*(Number.isInteger(months)&&months>0?months:0);
+ return {furnishing,replacement,replacementItems,moving,setup,rent,recurring,oneTime,total,remaining:Number.isFinite(project.preferences.budget)?project.preferences.budget-oneTime:null,missing,complete:missing.length===0};
 }
 export function compare(project){
  const rows=project.apartments.map(a=>{const issues=analyze(a,project.preferences),costs=calculateCosts(a,project);const reused=project.inventory.filter(i=>{const f=a.furniture.find(f=>f.inventoryId===i.id);return i.source==='owned'&&f&&!a.replacementIds.includes(i.id)&&!itemIssues(issues,f.id).some(i=>fitProblems([i]).length||i.kind==='missing');}).length;return {apartment:a,issues,costs,reused,area:area(a),conflicts:fitProblems(issues).length,newFurniture:a.furniture.filter(f=>f.source!=='owned').length+costs.replacementItems.length};});

@@ -10,7 +10,14 @@ function transaction(action,mode='readonly'){
 }
 export function listTourPhotos(apartmentId){return transaction(store=>store.index('apartmentId').getAll(apartmentId)).then(rows=>rows.sort((a,b)=>a.created-b.created));}
 export function deleteTourPhoto(id){return transaction(store=>store.delete(id),'readwrite');}
-export function clearTourPhotos(){return transaction(store=>store.clear(),'readwrite');}
+export async function clearTourPhotos(namespace='real'){
+ const rows=await transaction(store=>store.getAll());
+ await Promise.all(rows.filter(row=>namespace==='demo'?row.apartmentId.startsWith('demo:'):!row.apartmentId.startsWith('demo:')).map(row=>deleteTourPhoto(row.id)));
+}
+export async function moveTourPhotosToDemo(apartmentIds){
+ const rows=await transaction(store=>store.getAll());
+ await Promise.all(rows.filter(row=>apartmentIds.includes(row.apartmentId)).map(row=>transaction(store=>store.put({...row,apartmentId:`demo:${row.apartmentId}`}), 'readwrite')));
+}
 export async function saveTourPhoto(apartmentId,file){
  if(!file?.type.startsWith('image/'))throw Error('Choose an image file.');
  if(file.size>12*1024*1024)throw Error('Choose a photo smaller than 12 MB.');

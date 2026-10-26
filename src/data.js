@@ -18,7 +18,7 @@ function opening(id,roomId,wall,offset,width,type='door',extra={}) {return {id,r
 export function demoProject() {
  const inventory = [item('sofa','inv-sofa',null,0,0,{measurementConfidence:'estimated'}),item('bed','inv-bed',null,0,0),item('desk','inv-desk',null,0,0),item('chair','inv-chair',null,0,0),item('bookshelf','inv-shelf',null,0,0),item('plant','inv-plant',null,0,0)];
  const owned=(type,id,roomId,x,z,extra={})=>item(type,id,roomId,x,z,{inventoryId:`inv-${type==='bookshelf'?'shelf':type}`,...extra,...(type==='sofa'?{measurementConfidence:'estimated'}:{})});
- return {version:1,id:'next-apartment',name:'My Next Apartment',activeApartmentId:'willow',preferences:{units:'metric',snap:true,clearance:0.6,months:12,budget:4000,weights:{cost:35,reuse:30,area:15,conflicts:15,newFurniture:5}},inventory,apartments:[
+ const project={version:1,id:'next-apartment',name:'Judge demo · SpaceSwap',activeApartmentId:'willow',preferences:{units:'metric',snap:true,clearance:0.6,months:12,budget:4000,weights:{cost:35,reuse:30,area:15,conflicts:15,newFurniture:5}},inventory,apartments:[
  {id:'willow',name:'The Willow Loft',address:'128 Willow Street · Apartment 4B',label:'Apartment A',rent:2450,moving:650,setup:150,recurring:80,replacementIds:[],
  rooms:[{id:'a-living',name:'Living room',x:0,z:0,width:5.2,depth:5.5,measurementConfidence:'verified',floor:'oak'},{id:'a-bedroom',name:'Bedroom',x:5.2,z:0,width:3.8,depth:5.5,measurementConfidence:'verified',floor:'oak'},{id:'a-kitchen',name:'Kitchen & dining',x:0,z:5.5,width:5.2,depth:2.5,measurementConfidence:'imported',floor:'tile'},{id:'a-bath',name:'Bathroom',x:5.2,z:5.5,width:3.8,depth:2.5,measurementConfidence:'verified',floor:'tile'}],
  openings:[opening('a-d1','a-living','south',3.7,0.9),opening('a-d2','a-bedroom','south',0.35,0.85),opening('a-d3','a-kitchen','south',3.8,0.9),opening('a-d4','a-bath','west',0.6,0.8),opening('a-w1','a-living','north',1.1,2.4,'window'),opening('a-w2','a-bedroom','north',0.8,2.2,'window'),opening('a-w3','a-kitchen','west',0.6,1.2,'window')],
@@ -30,4 +30,10 @@ export function demoProject() {
  clearances:[{id:'b-path',roomId:'b-kitchen',name:'Entry walkway',x:3.1,z:4.5,width:0.95,depth:2.3}],
  furniture:[owned('sofa','b-sofa','b-living',1.65,0.9),owned('bed','b-bed','b-bedroom',6,1.65),owned('desk','b-desk','b-living',1.1,3.5),owned('chair','b-chair','b-living',1.1,2.7),owned('bookshelf','b-shelf','b-living',1.8,3.6),item('coffee','b-coffee','b-living',1.65,2.05,{source:'planned'}),item('wardrobe','b-wardrobe','b-bedroom',6.5,4.1,{source:'planned'}),item('lamp','b-lamp','b-living',3.4,0.7,{source:'planned'}),owned('plant','b-plant','b-living',3.8,2.2),fixture('b-counter','b-kitchen','kitchen','Kitchen cabinetry',.42,5.65,.64,1.9,1.1),fixture('b-vanity','b-bath','vanity','Oak bathroom vanity',6.3,4.95,1.1,.5,1),fixture('b-toilet','b-bath','toilet','Bathroom suite',5.15,6.35,.52,.65,.8),fixture('b-shower','b-bath','shower','Walk-in shower',6.8,6,1.1,1.2,2.15)]}
  ]};
+ project.apartments[0].moveRoute={entry:{width:.94,height:2.08},hall:{width:1.02,height:2.18},liftDoor:{width:.82,height:2.02},liftCabin:{width:.95,depth:1.7,height:2.2},stairs:{width:null,height:null}};
+ project.apartments[1].moveRoute={entry:{width:.88,height:2.05},hall:{width:null,height:null},liftDoor:{width:null,height:null},liftCabin:{width:null,depth:null,height:null},stairs:{width:.86,height:null}};
+ return project;
+}
+export function blankProject(){
+ return {version:1,id:uid('project'),name:'My SpaceSwap project',activeApartmentId:null,preferences:{units:'metric',snap:true,clearance:.6,months:null,budget:null,weights:{cost:35,reuse:30,area:15,conflicts:15,newFurniture:5}},inventory:[],apartments:[]};
 }

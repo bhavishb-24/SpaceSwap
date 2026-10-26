@@ -9,7 +9,10 @@ with sync_playwright() as playwright:
     page = browser.new_page(viewport={'width': 1440, 'height': 900})
     errors = []
     page.on('pageerror', lambda error: errors.append(str(error)))
+    page.goto(f'{URL}/#judges', wait_until='networkidle')
+    page.locator('[data-action="enter-demo"]').first.click()
     page.goto(f'{URL}/#landing', wait_until='networkidle')
+    page.reload(wait_until='networkidle')
 
     page.keyboard.press('Tab')
     assert page.locator('.skip-link').evaluate('(node) => node === document.activeElement')
@@ -33,6 +36,8 @@ with sync_playwright() as playwright:
     reduced = browser.new_page(viewport={'width': 390, 'height': 844}, reduced_motion='reduce')
     reduced_errors = []
     reduced.on('pageerror', lambda error: reduced_errors.append(str(error)))
+    reduced.goto(f'{URL}/#judges', wait_until='networkidle')
+    reduced.locator('[data-action="enter-demo"]').first.click()
     reduced.goto(f'{URL}/#landing', wait_until='networkidle')
     reduced.locator('[data-action="navigate"][data-page="editor"]').first.click()
     assert reduced.locator('.editor-workbench').is_visible()

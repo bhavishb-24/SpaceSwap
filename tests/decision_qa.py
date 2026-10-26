@@ -22,7 +22,7 @@ with sync_playwright() as playwright:
     assert page.locator('.judge-grid article').count()==4
     page.wait_for_timeout(440)
     page.screenshot(path=str(OUT/'judges.png'),full_page=True)
-    page.locator('[data-page="move"]').first.click()
+    page.locator('[data-action="enter-demo"][data-page="move"]').first.click()
     assert page.locator('.readiness-row').count()>=6
     assert page.locator('.readiness-status.blocked').count()>=1
     page.screenshot(path=str(OUT/'moveready.png'),full_page=True)
@@ -66,6 +66,8 @@ with sync_playwright() as playwright:
     assert '4 PM' not in shared.content()
     page.screenshot(path=str(OUT/'brief.png'),full_page=True)
     mobile=browser.new_page(viewport={'width':390,'height':844})
+    mobile.goto(BASE+'/#judges',wait_until='networkidle')
+    mobile.locator('[data-action="enter-demo"]').first.click()
     mobile.goto(BASE+'/#move',wait_until='networkidle')
     assert mobile.locator('.decision-hero').is_visible()
     assert mobile.evaluate('document.documentElement.scrollWidth <= 390')
@@ -76,7 +78,7 @@ with sync_playwright() as playwright:
     bad={'v':1,'n':'bad','m':12,'b':4000,'a':[{'n':'<img src=x onerror=alert(1)>','s':50,'p':False,'t':100,'c':True,'r':20,'f':0,'u':0,'q':{'blocked':'<img>'},'tasks':1}]}
     token=base64.urlsafe_b64encode(json.dumps(bad).encode()).decode().rstrip('=')
     mobile.goto(BASE+'/?brief='+token+'#brief',wait_until='networkidle')
-    assert mobile.locator('.brief-card h2').first.inner_text()=='The Willow Loft'
+    assert mobile.locator('.empty-project h1').inner_text()=='This snapshot link cannot be opened.'
     assert not errors,errors
     assert not failed,failed
     print('DECISION FLOW PASSED',flush=True)

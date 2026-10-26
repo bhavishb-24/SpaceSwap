@@ -63,7 +63,8 @@ export function analyze(apartment,preferences={clearance:0.6}) {
 export const itemIssues=(issues,id)=>issues.filter(i=>i.itemId===id||i.otherId===id);
 export const fitProblems=issues=>issues.filter(i=>['overlap','boundary','door','path','clearance'].includes(i.kind));
 export const area=apartment=>apartment.rooms.reduce((s,r)=>s+r.width*r.depth,0);
-export function formatLength(m,units='metric'){if(!Number.isFinite(m))return 'Unknown';if(units==='imperial'){const inches=Math.round(m/0.0254);return `${Math.floor(inches/12)}′ ${inches%12}″`;}return `${m.toFixed(2)} m`;}
+export function formatInputNumber(value,decimals=3){return Number.isFinite(value)?String(Number(value.toFixed(decimals))):'';}
+export function formatLength(m,units='metric'){if(!Number.isFinite(m))return 'Unknown';if(units==='imperial'){const inches=Math.round(m/0.0254);return `${Math.floor(inches/12)}′ ${inches%12}″`;}return `${formatInputNumber(m,2)} m`;}
 export const toMeters=(value,units='metric')=>units==='imperial'?value*0.3048:value;
 export const fromMeters=(value,units='metric')=>units==='imperial'?value/0.3048:value;
 export const formatArea=(m,units='metric')=>units==='imperial'?`${Math.round(m*10.7639104)} ft²`:`${m.toFixed(1)} m²`;

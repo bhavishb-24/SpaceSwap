@@ -20,6 +20,7 @@
 /* Motion and interaction polish: brief, composited, and progressively enhanced. */
 :root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-spring:cubic-bezier(.2,.9,.25,1.15);--shadow-raised:0 16px 38px rgba(43,68,38,.10),0 3px 10px rgba(43,68,38,.06)}
 html{scroll-behavior:smooth}body{overflow-x:hidden}.skip-link{position:fixed;left:18px;top:14px;z-index:2000;padding:10px 14px;border-radius:7px;background:#fff;color:var(--green);box-shadow:var(--shadow-raised);font-weight:650;transform:translateY(-160%);transition:transform .2s var(--ease-out)}.skip-link:focus{transform:translateY(0)}
+@media print{.skip-link{display:none!important}.motion-reveal{opacity:1!important;transform:none!important;filter:none!important;animation:none!important}}
 .main-shell,.landing{isolation:isolate}.topbar{background:rgba(252,252,248,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .brand-mark,.project-avatar,.avatar,.profile-avatar,.nav-item,.icon-btn,.small-tool,.segmented button,.catalog-add,.space-switch,.space-picker-list button,.warning-item{transition:transform .22s var(--ease-out),background-color .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease,opacity .22s ease}
 .brand:hover .brand-mark{transform:rotate(-4deg) scale(1.04);box-shadow:0 7px 18px rgba(38,78,59,.18)}
